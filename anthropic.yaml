@@ -50,7 +50,7 @@ components:
       properties:
         type:
           type: string
-          const: ephemeral
+          enum: [ephemeral]
       required:
         - type
       description: An object indicating that the response or block is ephemeral.
@@ -63,16 +63,15 @@ components:
         document_index:
           type: number
         document_title:
-          type:
-            - "null"
-            - string
+          type: string
+          nullable: true
         end_char_index:
           type: number
         start_char_index:
           type: number
         type:
           type: string
-          const: char_location
+          enum: [char_location]
       required:
         - cited_text
         - document_index
@@ -89,16 +88,15 @@ components:
         document_index:
           type: number
         document_title:
-          type:
-            - "null"
-            - string
+          type: string
+          nullable: true
         end_block_index:
           type: number
         start_block_index:
           type: number
         type:
           type: string
-          const: content_block_location
+          enum: [content_block_location]
       required:
         - cited_text
         - document_index
@@ -115,16 +113,15 @@ components:
         document_index:
           type: number
         document_title:
-          type:
-            - "null"
-            - string
+          type: string
+          nullable: true
         end_page_number:
           type: number
         start_page_number:
           type: number
         type:
           type: string
-          const: page_location
+          enum: [page_location]
       required:
         - cited_text
         - document_index
@@ -145,7 +142,7 @@ components:
       properties:
         type:
           type: string
-          const: text
+          enum: [text]
         text:
           type: string
         cache_control:
@@ -166,7 +163,7 @@ components:
       properties:
         type:
           type: string
-          const: base64
+          enum: [base64]
         data:
           type: string
         media_type:
@@ -182,7 +179,7 @@ components:
       properties:
         type:
           type: string
-          const: image
+          enum: [image]
         source:
           $ref: '#/components/schemas/Base64Source'
         cache_control:
@@ -198,7 +195,7 @@ components:
       properties:
         type:
           type: string
-          const: tool_use
+          enum: [tool_use]
         id:
           type: string
         input: {}
@@ -219,7 +216,7 @@ components:
       properties:
         type:
           type: string
-          const: tool_result
+          enum: [tool_result]
         tool_use_id:
           type: string
         cache_control:
@@ -243,7 +240,7 @@ components:
       properties:
         type:
           type: string
-          const: document
+          enum: [document]
         source:
           oneOf:
             - $ref: '#/components/schemas/Base64Source'
@@ -257,7 +254,7 @@ components:
                     - type: string
                 type:
                   type: string
-                  const: content
+                  enum: [content]
               required:
                 - content
                 - type
@@ -267,10 +264,10 @@ components:
                   type: string
                 media_type:
                   type: string
-                  const: text/plain
+                  enum: [text/plain]
                 type:
                   type: string
-                  const: text
+                  enum: [text]
               required:
                 - data
                 - media_type
@@ -285,13 +282,11 @@ components:
             enabled:
               type: boolean
             context:
-              type:
-                - "null"
-                - string
+              type: string
+              nullable: true
             title:
-              type:
-                - "null"
-                - string
+              type: string
+              nullable: true
           required:
             - enabled
       required:
@@ -331,9 +326,8 @@ components:
       type: object
       properties:
         user_id:
-          type:
-            - "null"
-            - string
+          type: string
+          nullable: true
       additionalProperties: false
       description: An object describing metadata about the request.
 
@@ -342,7 +336,7 @@ components:
       properties:
         type:
           type: string
-          const: auto
+          enum: [auto]
         disable_parallel_tool_use:
           type: boolean
       required:
@@ -353,7 +347,7 @@ components:
       properties:
         type:
           type: string
-          const: any
+          enum: [any]
         disable_parallel_tool_use:
           type: boolean
       required:
@@ -364,7 +358,7 @@ components:
       properties:
         type:
           type: string
-          const: tool
+          enum: [tool]
         name:
           type: string
         disable_parallel_tool_use:
@@ -389,7 +383,7 @@ components:
               properties:
                 type:
                   type: string
-                  const: object
+                  enum: [object]
                 properties: {}
               required:
                 - type
@@ -414,11 +408,11 @@ components:
       properties:
         name:
           type: string
-          const: bash
+          enum: [bash]
           description: Name of the tool. This is how the tool will be called by the model and in tool_use blocks.
         type:
           type: string
-          const: bash_20241022
+          enum: [bash_20241022]
         cache_control:
           $ref: '#/components/schemas/CacheControl'
           nullable: true
@@ -431,11 +425,11 @@ components:
       properties:
         name:
           type: string
-          const: str_replace_editor
+          enum: [str_replace_editor]
           description: Name of the tool. This is how the tool will be called by the model and in tool_use blocks.
         type:
           type: string
-          const: text_editor_20241022
+          enum: [text_editor_20241022]
         cache_control:
           $ref: '#/components/schemas/CacheControl'
           nullable: true
@@ -448,11 +442,11 @@ components:
       properties:
         name:
           type: string
-          const: computer
+          enum: [computer]
           description: Name of the tool. This is how the tool will be called by the model and in tool_use blocks.
         type:
           type: string
-          const: computer_20241022
+          enum: [computer_20241022]
         display_height_px:
           type: number
           description: The height of the display in pixels.
@@ -460,9 +454,8 @@ components:
           type: number
           description: The width of the display in pixels.
         display_number:
-          type:
-            - "null"
-            - number
+          type: number
+          nullable: true
           description: The X11 display number (e.g. 0, 1) for the display.
         cache_control:
           $ref: '#/components/schemas/CacheControl'
@@ -473,7 +466,7 @@ components:
         - display_height_px
         - display_width_px
 
-    MessageCreateParamsBase:
+    MessageCreateParams:
       type: object
       required:
         - max_tokens
@@ -531,38 +524,13 @@ components:
         top_p:
           type: number
 
-    MessageCreateParamsNonStreaming:
-      allOf:
-        - $ref: '#/components/schemas/MessageCreateParamsBase'
-        - type: object
-          properties:
-            stream:
-              type: boolean
-              const: false
-
-    MessageCreateParamsStreaming:
-      allOf:
-        - $ref: '#/components/schemas/MessageCreateParamsBase'
-        - type: object
-          properties:
-            stream:
-              type: boolean
-              const: true
-          required:
-            - stream
-
-    MessageCreateParams:
-      oneOf:
-        - $ref: '#/components/schemas/MessageCreateParamsNonStreaming'
-        - $ref: '#/components/schemas/MessageCreateParamsStreaming'
-
     MessageStreamEvent:
       type: object
       description: Server-sent event stream
       properties:
         type:
           type: string
-          enum: [message_start, message_delta, message_stop, content_block_start, content_block_delta, content_block_stop]
+          enum: [ping, message_start, message_delta, message_stop, content_block_start, content_block_delta, content_block_stop]
         message:
           $ref: '#/components/schemas/Message'
         delta:
@@ -571,7 +539,8 @@ components:
               properties:
                 stop_reason:
                   type: string
-                  enum: [end_turn, max_tokens, stop_sequence, tool_use, null]
+                  enum: [end_turn, max_tokens, stop_sequence, tool_use]
+                  nullable: true
                 stop_sequence:
                   type: string
                   nullable: true
@@ -581,21 +550,21 @@ components:
                   type: string
                 type:
                   type: string
-                  const: text_delta
+                  enum: [text_delta]
             - type: object
               properties:
                 partial_json:
                   type: string
                 type:
                   type: string
-                  const: input_json_delta  
+                  enum: [input_json_delta]
             - type: object
               properties:
                 citation:
                   $ref: '#/components/schemas/Citation'
                 type:
                   type: string
-                  const: citations_delta
+                  enum: [citations_delta]
         usage:
           type: object
           properties:
@@ -625,31 +594,28 @@ components:
           $ref: '#/components/schemas/ModelEnum'
         role:
           type: string
-          const: assistant
+          enum: [assistant]
           description: Conversational role (always assistant in a response).
         stop_reason:
-          oneOf:
-            - type: string
-              enum: [end_turn, max_tokens, stop_sequence, tool_use]
-            - type: "null"
+          type: string
+          enum: [end_turn, max_tokens, stop_sequence, tool_use]
+          nullable: true
         stop_sequence:
-          type:
-            - "null"
-            - string
+          type: string
+          nullable: true
+
         type:
           type: string
-          const: message
+          enum: [message]
         usage:
           type: object
           properties:
             cache_creation_input_tokens:
-              type:
-                - "null"
-                - number
+              type: number
+              nullable: true
             cache_read_input_tokens:
-              type:
-                - "null"
-                - number
+              type: number
+              nullable: true
             input_tokens:
               type: number
             output_tokens:
@@ -676,13 +642,11 @@ components:
       type: object
       properties:
         cache_creation_input_tokens:
-          type:
-            - "null"
-            - number
+          type: number
+          nullable: true
         cache_read_input_tokens:
-          type:
-            - "null"
-            - number
+          type: number
+          nullable: true
         input_tokens:
           type: number
         output_tokens:
